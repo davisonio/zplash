@@ -1,5 +1,7 @@
 # Zplash
 
+**Live demo: [zplash.vercel.app](https://zplash.vercel.app/)**
+
 A working implementation of [ZIP-324](https://zips.z.cash/zip-0324) for Zcash. Fund a shielded address, then let someone claim the funds with a link.
 
 ## How it works
@@ -24,7 +26,7 @@ Open [http://localhost:5173](http://localhost:5173). The frontend expects the pr
 ## URI format
 
 ```
-https://claim.zcash.co/claim#amount=0.1&desc=Lunch&key=zkey1...
+https://zplash.vercel.app/claim#amount=0.1&desc=Lunch&key=zkey1...
 ```
 
 | Parameter | Required | Description |
