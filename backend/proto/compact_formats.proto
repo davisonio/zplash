@@ -1,0 +1,38 @@
+syntax = "proto3";
+package cash.z.wallet.sdk.rpc;
+
+message CompactBlock {
+    uint32 protoVersion = 1;
+    uint64 height = 2;
+    bytes hash = 3;
+    bytes prevHash = 4;
+    uint32 time = 5;
+    bytes header = 6;
+    repeated CompactTx vtx = 7;
+}
+
+message CompactTx {
+    uint64 index = 1;
+    bytes hash = 2;
+    uint32 fee = 3;
+    repeated CompactSaplingSpend spends = 4;
+    repeated CompactSaplingOutput outputs = 5;
+    repeated CompactOrchardAction actions = 6;
+}
+
+message CompactSaplingSpend {
+    bytes nf = 1;
+}
+
+message CompactSaplingOutput {
+    bytes cmu = 1;
+    bytes epk = 2;
+    bytes ciphertext = 3;
+}
+
+message CompactOrchardAction {
+    bytes nullifier = 1;
+    bytes cmx = 2;
+    bytes ephemeralKey = 3;
+    bytes ciphertext = 4;
+}

@@ -1,0 +1,8 @@
+backend/
+proxy/
+wasm-sweep/
+wasm/
+node_modules/
+*.lock
+.cargo/
+target/

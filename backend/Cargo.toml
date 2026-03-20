@@ -1,0 +1,40 @@
+[package]
+name = "sweep-backend"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# Zcash crypto (sapling-crypto 0.5 must match zcash_primitives 0.26)
+sapling-crypto = "0.5"
+zcash_primitives = { version = "0.26", features = ["circuits"] }
+zcash_proofs = "0.26"
+zcash_note_encryption = "0.4"
+zcash_protocol = "0.7"
+zcash_transparent = "0.6"
+incrementalmerkletree = "0.8"
+zip32 = "0.2"
+
+# gRPC (lightwalletd)
+tonic = { version = "0.12", features = ["transport", "tls", "tls-webpki-roots"] }
+prost = "0.13"
+
+# HTTP server
+tokio = { version = "1", features = ["full"] }
+axum = "0.7"
+tower-http = { version = "0.6", features = ["cors"] }
+
+# Serialization & utilities
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+hex = "0.4"
+bech32 = "0.11"
+blake2b_simd = "1"
+rand = "0.8"
+
+# Error handling & logging
+anyhow = "1"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+[build-dependencies]
+tonic-build = "0.12"
