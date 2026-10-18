@@ -15,10 +15,10 @@ The secret key lives in the URL fragment (`#`), which browsers never send to ser
 ## Quick start
 
 ```bash
-npm install
+pnpm install
 cd wasm-sweep && wasm-pack build --target web --out-dir pkg && cd ..
 cd proxy && cargo run && cd ..
-npm run dev
+pnpm dev
 ```
 
 On macOS, Apple's clang can't build the `secp256k1-sys` C code for wasm32. Install LLVM (`brew install llvm`) and run `wasm-pack` with `CC_wasm32_unknown_unknown=$(brew --prefix llvm)/bin/clang AR_wasm32_unknown_unknown=$(brew --prefix llvm)/bin/llvm-ar`.
@@ -48,7 +48,7 @@ https://zplash.vercel.app/claim#amount=0.1&desc=Lunch&key=zkey1...
 ## Tests
 
 ```bash
-npm test
+pnpm test
 ```
 
 Covers Bech32 round-trip encoding, BLAKE2b key derivation, URI construction/parsing, and amount validation. Rust pieces can be checked with `cargo check` in `proxy/` and `wasm-sweep/`.

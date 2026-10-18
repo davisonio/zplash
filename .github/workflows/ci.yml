@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 12
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm test
+      # The app imports wasm-sweep/pkg (gitignored), built from the Rust crate with wasm-pack.
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: wasm-sweep
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: wasm-pack
+      - name: Build wasm-sweep
+        working-directory: wasm-sweep
+        # Ubuntu ships llvm-ar only as llvm-ar-<version>.
+        run: |
+          export CC_wasm32_unknown_unknown=clang
+          AR_wasm32_unknown_unknown=$(command -v llvm-ar || find /usr/bin -name "llvm-ar-*" | sort -V | tail -1)
+          export AR_wasm32_unknown_unknown
+          wasm-pack build --target web --out-dir pkg
+      - run: pnpm build
