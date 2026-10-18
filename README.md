@@ -21,6 +21,8 @@ cd proxy && cargo run && cd ..
 npm run dev
 ```
 
+On macOS, Apple's clang can't build the `secp256k1-sys` C code for wasm32. Install LLVM (`brew install llvm`) and run `wasm-pack` with `CC_wasm32_unknown_unknown=$(brew --prefix llvm)/bin/clang AR_wasm32_unknown_unknown=$(brew --prefix llvm)/bin/llvm-ar`.
+
 Open [http://localhost:5173](http://localhost:5173). The frontend expects the proxy at `http://localhost:3001` unless `VITE_PROXY_URL` is set.
 
 ## URI format

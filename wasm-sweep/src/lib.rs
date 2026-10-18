@@ -15,14 +15,17 @@ use sapling_crypto::{
 use zcash_address::unified::{Container, Encoding as UnifiedEncoding, Receiver};
 use zcash_note_encryption::{try_compact_note_decryption, EphemeralKeyBytes};
 use zcash_primitives::{
-    consensus::{BlockHeight, MainNetwork},
     merkle_tree::read_commitment_tree,
     transaction::{
-        builder::{BuildConfig, Builder},
+        builder::{BuildConfig, Builder, BundlePadding},
         fees::FeeRule as _,
     },
 };
-use zcash_protocol::{memo::MemoBytes, value::Zatoshis};
+use zcash_protocol::{
+    consensus::{BlockHeight, MainNetwork},
+    memo::MemoBytes,
+    value::Zatoshis,
+};
 use zcash_transparent::builder::TransparentSigningSet;
 use zip32::Scope;
 
@@ -165,6 +168,7 @@ fn required_fee(note_count: usize, tip_height: u32) -> Result<u64, JsError> {
             std::iter::empty(),
             note_count,
             1,
+            0,
             0,
         )
         .map_err(|e| JsError::new(&format!("fee: {}", e)))?;
@@ -338,6 +342,9 @@ pub fn build_sweep_transaction(
     let build_config = BuildConfig::Standard {
         sapling_anchor: Some(payment.anchor),
         orchard_anchor: None,
+        ironwood_anchor: None,
+        orchard_padding: BundlePadding::DEFAULT,
+        ironwood_padding: BundlePadding::DEFAULT,
     };
 
     let mut builder = Builder::new(

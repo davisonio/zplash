@@ -25,12 +25,15 @@ use tonic::transport::{Channel, ClientTlsConfig};
 use tower_http::cors::CorsLayer;
 use zcash_note_encryption::{try_compact_note_decryption, EphemeralKeyBytes};
 use zcash_primitives::{
-    consensus::{BlockHeight, MainNetwork, Parameters, TestNetwork},
     merkle_tree::read_commitment_tree,
-    transaction::builder::{BuildConfig, Builder},
+    transaction::builder::{BuildConfig, Builder, BundlePadding},
 };
 use zcash_proofs::prover::LocalTxProver;
-use zcash_protocol::{memo::MemoBytes, value::Zatoshis};
+use zcash_protocol::{
+    consensus::{BlockHeight, MainNetwork, Parameters, TestNetwork},
+    memo::MemoBytes,
+    value::Zatoshis,
+};
 use zcash_transparent::builder::TransparentSigningSet;
 use zip32::Scope;
 
@@ -245,6 +248,9 @@ fn build_sweep<P: Parameters + Copy>(
     let build_config = BuildConfig::Standard {
         sapling_anchor: Some(anchor),
         orchard_anchor: None,
+        ironwood_anchor: None,
+        orchard_padding: BundlePadding::DEFAULT,
+        ironwood_padding: BundlePadding::DEFAULT,
     };
 
     let mut builder = Builder::new(params, anchor_height, build_config);

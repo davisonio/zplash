@@ -4,13 +4,13 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-# Zcash crypto (sapling-crypto 0.5 must match zcash_primitives 0.26)
-sapling-crypto = "0.5"
-zcash_primitives = { version = "0.26", features = ["circuits"] }
-zcash_proofs = "0.26"
+# Zcash crypto (sapling-crypto 0.7 must match zcash_primitives 0.30)
+sapling-crypto = "0.7"
+zcash_primitives = { version = "0.30", features = ["circuits"] }
+zcash_proofs = "0.30"
 zcash_note_encryption = "0.4"
-zcash_protocol = "0.7"
-zcash_transparent = "0.6"
+zcash_protocol = "0.10"
+zcash_transparent = "0.10"
 incrementalmerkletree = "0.8"
 zip32 = "0.2"
 
