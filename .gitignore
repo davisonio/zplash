@@ -5,3 +5,5 @@ target/
 wasm-sweep/pkg/
 .vercel/
 .DS_Store
+.wrangler
+.cloudflare/

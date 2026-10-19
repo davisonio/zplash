@@ -47,7 +47,7 @@ https://zplash.vercel.app/claim#amount=0.1&desc=Lunch&key=zkey1...
 
 ## Deploy
 
-The frontend is static assets served by a Cloudflare Worker (`cloudflare.config.ts`, `wrangler.config.ts`). Build, then deploy:
+The frontend is static assets served by a Cloudflare Worker (`cloudflare.config.ts`, with the `@cloudflare/vite-plugin` in `vite.config.ts`). `pnpm run build` writes the Worker output to `.cloudflare/output/`. Build, then deploy:
 
 ```bash
 pnpm run build

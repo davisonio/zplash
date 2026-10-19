@@ -21,6 +21,7 @@
     "react-router-dom": "^7.18.4"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "2.0.0-beta.v.1",
     "@eslint/js": "^10.0.1",
     "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
