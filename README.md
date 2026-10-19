@@ -47,14 +47,15 @@ https://zplash.vercel.app/claim#amount=0.1&desc=Lunch&key=zkey1...
 
 ## Deploy
 
-The frontend is static assets served by a Cloudflare Worker (`cloudflare.config.ts`, with the `@cloudflare/vite-plugin` in `vite.config.ts`). `pnpm run build` writes the Worker output to `.cloudflare/output/`. Build, then deploy:
+The frontend is static assets served by a Cloudflare Worker (`cloudflare.config.ts`, with the `@cloudflare/vite-plugin` in `vite.config.ts`). `pnpm run build` writes the Worker output to `.cloudflare/output/`.
+
+`pnpm run deploy` (`cf deploy`) runs its own Vite build, so set `VITE_PROXY_URL` on the deploy command. It defaults to `http://localhost:3001`:
 
 ```bash
-pnpm run build
-pnpm run deploy
+VITE_PROXY_URL=https://zplash-proxy.fly.dev pnpm run deploy
 ```
 
-Set `VITE_PROXY_URL` to the public URL of the proxy when building for deploy. It defaults to `http://localhost:3001`. The proxy is a separate Fly app (`proxy/fly.toml`) and deploys on its own. No secrets are needed.
+The staging Worker is `https://zplash.overcultured.workers.dev`, behind a Cloudflare Access app. The proxy is a separate Fly app (`proxy/fly.toml`) and deploys on its own. No secrets are needed.
 
 ## Tests
 
