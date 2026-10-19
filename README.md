@@ -45,6 +45,17 @@ https://zplash.vercel.app/claim#amount=0.1&desc=Lunch&key=zkey1...
 - Address derivation: browser calls Rust/WASM, which derives a real Sapling address from `ExtendedSpendingKey::master()`
 - Claim flow: browser scans compact blocks, trial-decrypts Sapling outputs, builds the spend, proves it, and broadcasts it through the proxy
 
+## Deploy
+
+The frontend is static assets served by a Cloudflare Worker (`cloudflare.config.ts`, `wrangler.config.ts`). Build, then deploy:
+
+```bash
+pnpm run build
+pnpm run deploy
+```
+
+Set `VITE_PROXY_URL` to the public URL of the proxy when building for deploy. It defaults to `http://localhost:3001`. The proxy is a separate Fly app (`proxy/fly.toml`) and deploys on its own. No secrets are needed.
+
 ## Tests
 
 ```bash
